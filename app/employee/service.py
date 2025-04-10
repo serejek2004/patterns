@@ -8,9 +8,9 @@ class EmployeeService:
     def __init__(self, db: SQLAlchemy):
         self.dao = EmployeeDAO(db)
 
-    def register_employee(self, employee_dto: EmployeeDTO, id: int) -> tuple[int, int]:
+    def create_employee(self, employee_dto: EmployeeDTO, id: int) -> tuple[int, int]:
         new_employee = Employee(id=id, salary=employee_dto.salary)
-        registered_employee = self.dao.register(model=new_employee)
+        registered_employee = self.dao.create(model=new_employee)
         return registered_employee.id, 201
 
     def get_all(self) -> tuple[list, int]:

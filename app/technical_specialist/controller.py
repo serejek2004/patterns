@@ -13,23 +13,24 @@ PersonService = PersonService(db)
 
 
 @app.route('/technical_specialist', methods=['POST'])
-def register_technical_specialist():
+def create_technical_specialist():
     data = request.get_json()
 
     person_dto = PersonDTO.from_request(data=data['employee']['person'])
-    response, status_code = PersonService.register_person(person_dto=person_dto)
+    response, status_code = PersonService.create_person(person_dto=person_dto)
 
     if status_code != 201:
         return jsonify({"message": f"{response}"}), status_code
 
     employee_dto = EmployeeDTO.from_request(data=data['employee'])
-    response, status_code = EmployeeService.register_employee(employee_dto=employee_dto, id=response)
+    response, status_code = EmployeeService.create_employee(employee_dto=employee_dto, id=response)
 
     if status_code != 201:
         return jsonify({"message": f"{response}"}), status_code
 
     technical_specialist_dto = TechnicalSpecialistDTO.from_request(data=data)
-    response, status_code = TechnicalSpecialistService.register(id=response, ts_dto=technical_specialist_dto)
+    response, status_code = TechnicalSpecialistService.create_technical_specialist(id=response,
+                                                                                   ts_dto=technical_specialist_dto)
 
     if status_code != 201:
         return jsonify({"message": "Failed to create customer"}), status_code

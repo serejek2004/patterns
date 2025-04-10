@@ -7,9 +7,9 @@ class ProjectManagerService:
     def __init__(self, db: SQLAlchemy):
         self.dao = ProjectManagerDAO(db)
 
-    def register(self, id: int) -> tuple[dict | None, int]:
+    def create_project_manager(self, id: int) -> tuple[dict | None, int]:
         new_project_manager = ProjectManager(id=id)
-        registered_project_manager = self.dao.register(new_project_manager)
+        registered_project_manager = self.dao.create(new_project_manager)
         return registered_project_manager.to_dict(), 201
 
     def get_all(self) -> tuple[list, int]:

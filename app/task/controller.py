@@ -8,14 +8,14 @@ TaskService = TaskService(db)
 
 
 @app.route('/task', methods=['POST'])
-def register_task():
+def create_task():
     data = request.get_json()
 
     if data['status'] not in StatusEnum.__members__:
         return jsonify({"message": "Bad request"}), 400
 
     task_dto = TaskDTO.from_request(data=data)
-    response, status_code = TaskService.register_task(task_dto=task_dto)
+    response, status_code = TaskService.create_task(task_dto=task_dto)
 
     if status_code != 201:
         return jsonify({"message": f"{response}"}), status_code

@@ -1,5 +1,30 @@
-class BasicDAO:
-    def register(self, model: object):
+from abc import ABC, abstractmethod
+
+
+class AbstractDAO(ABC):
+    @abstractmethod
+    def create(self, model: object):
+        pass
+
+    @abstractmethod
+    def get_all(self, model: object):
+        pass
+
+    @abstractmethod
+    def get(self, model: object, object_id: int):
+        pass
+
+    @abstractmethod
+    def delete(self, model: object, object_id: int):
+        pass
+
+    @abstractmethod
+    def update(self, model: object, new_object: object, object_id: int):
+        pass
+
+
+class BasicDAO(AbstractDAO):
+    def create(self, model: object):
         self.db.session.add(model)
         self.db.session.commit()
         return model

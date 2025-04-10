@@ -9,7 +9,7 @@ class PersonService:
     def __init__(self, db: SQLAlchemy):
         self.dao = PersonDAO(db)
 
-    def register_person(self, person_dto: PersonDTO) -> tuple[str, int] | tuple[int, int]:
+    def create_person(self, person_dto: PersonDTO) -> tuple[str, int] | tuple[int, int]:
         if not is_valid_email(person_dto.email):
             return "Invalid email", 400
 
@@ -22,7 +22,7 @@ class PersonService:
         if len(person_dto.phone_number) > 13:
             return "Too long phone number", 400
 
-        registered_person = self.dao.register(model=Person(
+        registered_person = self.dao.create(model=Person(
             name=person_dto.name,
             email=person_dto.email,
             phone_number=person_dto.phone_number)

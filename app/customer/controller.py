@@ -10,17 +10,17 @@ PersonService = PersonService(db)
 
 
 @app.route('/customer', methods=['POST'])
-def register_customer():
+def create_customer():
     data = request.get_json()
 
     person_dto = PersonDTO.from_request(data=data['person'])
-    response, status_code = PersonService.register_person(person_dto=person_dto)
+    response, status_code = PersonService.create_person(person_dto=person_dto)
 
     if status_code != 201:
         return jsonify({"message": f"{response}"}), status_code
 
     customer_dto = CustomerDTO.from_request(data=data)
-    customer, status_code = CustomerService.register(customer_dto=customer_dto, id=response)
+    customer, status_code = CustomerService.create(customer_dto=customer_dto, id=response)
 
     if status_code != 201:
         return jsonify({"message": "Failed to create customer"}), status_code

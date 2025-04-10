@@ -8,9 +8,9 @@ class TechnicalSpecialistService:
     def __init__(self, db: SQLAlchemy):
         self.dao = TechnicalSpecialistDAO(db)
 
-    def register(self, id: int, ts_dto: TechnicalSpecialistDTO) -> tuple[dict | None, int]:
+    def create_technical_specialist(self, id: int, ts_dto: TechnicalSpecialistDTO) -> tuple[dict | None, int]:
         new_technical_specialist = TechnicalSpecialist(id=id, manager_id=ts_dto.manager_id)
-        registered_technical_specialist = self.dao.register(new_technical_specialist)
+        registered_technical_specialist = self.dao.create(new_technical_specialist)
         return registered_technical_specialist.to_dict(), 201
 
     def get_all(self) -> tuple[list, int]:
