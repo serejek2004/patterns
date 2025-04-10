@@ -8,7 +8,7 @@ class ProjectService:
     def __init__(self, db: SQLAlchemy):
         self.dao = ProjectDAO(db)
 
-    def register_project(self, project_dto: ProjectDTO) -> tuple[dict | None, int]:
+    def create_project(self, project_dto: ProjectDTO) -> tuple[dict | None, int]:
         new_project = Project(project_name=project_dto.project_name,
                               budget=project_dto.budget,
                               status=project_dto.status,
@@ -16,7 +16,7 @@ class ProjectService:
                               end_date=project_dto.end_date,
                               project_manager_id=project_dto.project_manager_id,
                               customer_id=project_dto.customer_id)
-        registered_project = self.dao.register(new_project)
+        registered_project = self.dao.create(new_project)
         return registered_project.to_dict(), 201
 
     def get_all(self) -> tuple[list, int]:

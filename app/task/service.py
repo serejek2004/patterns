@@ -8,13 +8,13 @@ class TaskService:
     def __init__(self, db: SQLAlchemy):
         self.dao = TaskDAO(db)
 
-    def register_task(self, task_dto: TaskDTO) -> tuple[dict | None, int]:
+    def create_task(self, task_dto: TaskDTO) -> tuple[dict | None, int]:
         new_task = Task(status=task_dto.status,
                         deadline=task_dto.deadline,
                         project_id=task_dto.project_id,
                         doer_id=task_dto.doer_id)
-        registered_task = self.dao.register(new_task)
-        return registered_task.to_dict(), 201
+        created_task = self.dao.create(new_task)
+        return created_task.to_dict(), 201
 
     def get_all(self) -> tuple[list, int]:
         return [project.to_dict() for project in self.dao.get_all(Task)], 200

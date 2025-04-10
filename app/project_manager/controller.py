@@ -12,22 +12,22 @@ PersonService = PersonService(db)
 
 
 @app.route('/project_manager', methods=['POST'])
-def register_project_manager():
+def create_project_manager():
     data = request.get_json()
 
     person_dto = PersonDTO.from_request(data=data['employee']['person'])
-    response, status_code = PersonService.register_person(person_dto=person_dto)
+    response, status_code = PersonService.create_person(person_dto=person_dto)
 
     if status_code != 201:
         return jsonify({"message": f"{response}"}), status_code
 
     employee_dto = EmployeeDTO.from_request(data['employee'])
-    response, status_code = EmployeeService.register_employee(employee_dto=employee_dto, id=response)
+    response, status_code = EmployeeService.create_employee(employee_dto=employee_dto, id=response)
 
     if status_code != 201:
         return jsonify({"message": f"{response}"}), status_code
 
-    response, status_code = ProjectManagerService.register(id=response)
+    response, status_code = ProjectManagerService.create_project_manager(id=response)
 
     if status_code != 201:
         return jsonify({"message": "Failed to create customer"}), status_code

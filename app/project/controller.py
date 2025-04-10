@@ -8,14 +8,14 @@ ProjectService = ProjectService(db)
 
 
 @app.route('/project', methods=['POST'])
-def register_project():
+def create_project():
     data = request.get_json()
 
     if data['status'] not in StatusEnum.__members__:
         return jsonify({"message": "Bad request"}), 400
 
     project_dto = ProjectDTO.from_request(data=data)
-    response, status_code = ProjectService.register_project(project_dto=project_dto)
+    response, status_code = ProjectService.create_project(project_dto=project_dto)
 
     if status_code != 201:
         return jsonify({"message": f"{response}"}), status_code

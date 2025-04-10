@@ -8,9 +8,9 @@ class CustomerService:
     def __init__(self, db: SQLAlchemy):
         self.dao = CustomerDAO(db)
 
-    def register(self, customer_dto: CustomerDTO, id: int) -> tuple[dict | None, int]:
+    def create(self, customer_dto: CustomerDTO, id: int) -> tuple[dict | None, int]:
         new_customer = Customer(id=id, budget=customer_dto.budget)
-        registered_customer = self.dao.register(new_customer)
+        registered_customer = self.dao.create(new_customer)
         return registered_customer.to_dict(), 201
 
     def get_all(self) -> tuple[list, int]:
