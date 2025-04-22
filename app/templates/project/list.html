@@ -1,0 +1,19 @@
+{% extends "project/base.html" %}
+{% block title %}List projects{% endblock %}
+{% block content %}
+<h1>List projects</h1>
+<a href="/project/new">+ Add new project</a>
+{% for project in projects %}
+<div class="card">
+    <h2>{{ project.project_name }}</h2>
+    <p>Статус: {{ project.status }}</p>
+    <div style="display: flex; justify-content: center; align-items: center; gap: 10px; padding: 10px;">
+        <a href="/project/{{ project.id }}" style="display: flex; justify-content: center; text-align: center">Detail</a> |
+        <a href="/project/{{ project.id }}/edit" style="display: flex; justify-content: center; text-align: center">Update</a> |
+        <form method="POST" action="/project/{{ project.id }}/delete" style="width: auto">
+            <button type="submit" style="background-color: indianred">Delete</button>
+        </form>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
